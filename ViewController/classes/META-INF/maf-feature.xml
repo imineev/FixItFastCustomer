@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<adfmf:features xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:adfmf="http://xmlns.oracle.com/adf/mf">
+  <adfmf:feature id="oracle.mobile.cloud.sample.fif.customer.ServiceRequests" name="ServiceRequests"
+                 securityEnabled="false">
+    <adfmf:content id="oracle.mobile.cloud.sample.fif.customer.ServiceRequests.1">
+      <adfmf:amx file="oracle.mobile.cloud.sample.fif.customer.ServiceRequests/service-request-flow.xml#service-request-flow">
+        <adfmf:includes>
+          <adfmf:include type="StyleSheet" file="resources/css/fifcust.css" id="i1"/>
+        </adfmf:includes>
+      </adfmf:amx>
+    </adfmf:content>
+  </adfmf:feature>
+</adfmf:features>

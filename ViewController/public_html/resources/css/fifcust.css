@@ -1,0 +1,31 @@
+/* @charset "US-ASCII"; */
+/* *** use for instance specific skin additions *** */
+
+/* Header font style */
+.amx-panelPage-facet-header > .amx-outputText{
+    font-family: HelveticaNeue;
+    color: #000000;
+    font-size: 34px;
+    font-weight: 500;
+}
+
+/* Header background color */
+.amx-panelPage-facet-header{
+ background-color:  #35BB9F;
+}
+
+.backimage {
+    background: url("../images/logo.png"),url("../images/bg.png");
+}
+
+.tab_button {
+  display:inline-block;
+  line-height:1px;
+}
+
+.amx-commandButton-label {
+    color: #000000;
+}
+.amx-panelFormLayout{
+    border:0;
+}

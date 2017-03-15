@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="US-ASCII" ?>
+<adfc-mobile-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.0">
+  <task-flow-definition id="service-request-flow">
+    <default-activity>checkUserAuthentication</default-activity>
+    <managed-bean id="__25">
+      <managed-bean-name>authenticationHandler</managed-bean-name>
+      <managed-bean-class>oracle.mobile.cloud.sample.fif.customer.mbeans.security.AuthenticationHandler</managed-bean-class>
+      <managed-bean-scope>pageFlow</managed-bean-scope>
+    </managed-bean>
+    <managed-bean id="__6">
+      <managed-bean-name>taskFlowHelper</managed-bean-name>
+      <managed-bean-class>oracle.mobile.cloud.sample.fif.customer.mbeans.app.TaskFlowHelper</managed-bean-class>
+      <managed-bean-scope>pageFlow</managed-bean-scope>
+    </managed-bean>
+    <managed-bean id="__3">
+      <managed-bean-name>sRDetailBacking</managed-bean-name>
+      <managed-bean-class>oracle.mobile.cloud.sample.fif.customer.mbeans.backing.SRDetailBacking</managed-bean-class>
+      <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean id="__19">
+      <managed-bean-name>sRListBacking</managed-bean-name>
+      <managed-bean-class>oracle.mobile.cloud.sample.fif.customer.mbeans.backing.SRListBacking</managed-bean-class>
+      <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <view id="SRList">
+      <page>/service/requests/SRList.amx</page>
+    </view>
+    <view id="SRDetail">
+      <page>/service/requests/SRDetail.amx</page>
+    </view>
+<router id="checkUserAuthentication">
+      <case id="__7">
+        <expression>#{pageFlowScope.authenticationHandler.userAuthenticated == true}</expression>
+        <outcome>gotoListView</outcome>
+      </case>
+      <case id="__26">
+        <expression>#{pageFlowScope.authenticationHandler.userAuthenticated == false}</expression>
+        <outcome>login</outcome>
+      </case>
+      <default-outcome>login</default-outcome>
+    </router>
+    <view id="Login">
+      <page>/service/login/Login.amx</page>
+    </view>
+    <method-call id="preLoadPhotoForBetterPerformance">
+      <method>#{viewScope.sRDetailBacking.getBase64EncodedIncidentPhoto}</method>
+      <outcome>
+        <fixed-outcome>drillDown</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="PostAuthenticationValidationAnalyticEvent">
+      <method>#{pageFlowScope.taskFlowHelper.addPostAuthenticationValidationAnalyticEvent}</method>
+      <outcome>
+        <fixed-outcome>gotoMenu</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="IncidentSelection">
+      <method>#{pageFlowScope.taskFlowHelper.addIncidentSelection}</method>
+      <parameter>
+        <class>java.lang.String</class>
+        <value>#{pageFlowScope.taskFlowHelper.currentIncidentId}</value>
+      </parameter>
+      <outcome>
+        <fixed-outcome>preloadImage</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="PushNavigationAnalyticEvent1">
+      <method>#{pageFlowScope.taskFlowHelper.addPushAnalyticEvent}</method>
+      <parameter>
+        <class>java.lang.String</class>
+        <value>#{pageFlowScope.taskFlowHelper.currentIncidentId}</value>
+      </parameter>
+      <outcome>
+        <fixed-outcome>preLoadImage</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="Logout">
+      <method>#{pageFlowScope.authenticationHandler.logout}</method>
+      <outcome>
+        <fixed-outcome>logout</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="LogoutAnalyticEvent">
+      <method>#{pageFlowScope.taskFlowHelper.addLogoutAnalyticEvent}</method>
+      <outcome>
+        <fixed-outcome>logout</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="LoginAnalyticEvent">
+      <method>#{pageFlowScope.taskFlowHelper.addLoginAnalyticEvent}</method>
+      <parameter>
+        <?audit suppress oracle.ide.xml.validation-incomplete?>
+        <class>java.lang.String</class>
+        <value>#{'login success'}</value>
+      </parameter>
+      <outcome>
+        <fixed-outcome>showList</fixed-outcome>
+      </outcome>
+    </method-call>
+<method-call id="postCollectedAnalyticEventsToMCS2">
+      <method>#{pageFlowScope.taskFlowHelper.flushAnalyticEventsToServer}</method>
+      <outcome>
+        <?audit suppress oracle.ide.xml.validation-incomplete?>
+        <fixed-outcome>logout</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="postCollectedAnalyticEventsToMCS1">
+      <method>#{pageFlowScope.taskFlowHelper.flushAnalyticEventsToServer}</method>
+      <outcome>
+        <fixed-outcome>browseIncidents</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="registerForMCSNotification">
+      <method>#{bindings.registerForMCSNotification.execute}</method>
+      <outcome>
+        <fixed-outcome>appStart</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="deRegisterForMCSNotification">
+      <method>#{bindings.deRegisterForMCSNotification.execute}</method>
+      <outcome>
+        <fixed-outcome>backFromList</fixed-outcome>
+      </outcome>
+    </method-call>
+    <view id="SRCreation">
+      <page>/service/requests/SRCreation.amx</page>
+    </view>
+    <view id="SRMenu">
+      <page>/service/menu/SRMenu.amx</page>
+    </view>
+    <control-flow-rule id="__1">
+      <from-activity-id>SRList</from-activity-id>
+      <control-flow-case id="__2">
+        <from-outcome>drillDownFromPage</from-outcome>
+        <to-activity-id>IncidentSelection</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__32">
+        <from-outcome>gotoMenu</from-outcome>
+        <to-activity-id>SRMenu</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__14">
+      <from-activity-id>*</from-activity-id>
+      <control-flow-case id="__15">
+        <from-outcome>browseIncidents</from-outcome>
+        <to-activity-id>SRList</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__5">
+      <from-activity-id>checkUserAuthentication</from-activity-id>
+      <control-flow-case id="__24">
+        <from-outcome>gotoListView</from-outcome>
+        <to-activity-id>PostAuthenticationValidationAnalyticEvent</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__34">
+        <from-outcome>login</from-outcome>
+        <to-activity-id>Login</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__8">
+      <from-activity-id>*</from-activity-id>
+      <control-flow-case id="__27">
+        <from-outcome>handlePush</from-outcome>
+        <to-activity-id>PushNavigationAnalyticEvent1</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__12">
+      <from-activity-id>Login</from-activity-id>
+      <control-flow-case id="__13">
+        <from-outcome>auth-success</from-outcome>
+        <to-activity-id>LoginAnalyticEvent</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__16">
+      <from-activity-id>preLoadPhotoForBetterPerformance</from-activity-id>
+      <control-flow-case id="__17">
+        <from-outcome>drillDown</from-outcome>
+        <to-activity-id>SRDetail</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__20">
+      <from-activity-id>SRDetail</from-activity-id>
+      <control-flow-case id="__21">
+        <from-outcome>flushAnalytics</from-outcome>
+        <to-activity-id>postCollectedAnalyticEventsToMCS1</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__31">
+      <from-activity-id>PostAuthenticationValidationAnalyticEvent</from-activity-id>
+      <control-flow-case id="__18">
+        <from-outcome>gotoMenu</from-outcome>
+        <to-activity-id>SRMenu</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__35">
+      <from-activity-id>IncidentSelection</from-activity-id>
+      <control-flow-case id="__36">
+        <from-outcome>preloadImage</from-outcome>
+        <to-activity-id>preLoadPhotoForBetterPerformance</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__39">
+      <from-activity-id>PushNavigationAnalyticEvent1</from-activity-id>
+      <control-flow-case id="__40">
+        <from-outcome>preLoadImage</from-outcome>
+        <to-activity-id>preLoadPhotoForBetterPerformance</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__4">
+      <from-activity-id>*</from-activity-id>
+      <control-flow-case id="__22">
+        <from-outcome>logout</from-outcome>
+        <to-activity-id>Logout</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__23">
+      <from-activity-id>Logout</from-activity-id>
+      <control-flow-case id="__28">
+        <from-outcome>logout</from-outcome>
+        <to-activity-id>LogoutAnalyticEvent</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__41">
+      <from-activity-id>LoginAnalyticEvent</from-activity-id>
+      <control-flow-case id="__42">
+        <from-outcome>showList</from-outcome>
+        <to-activity-id>registerForMCSNotification</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+<control-flow-rule id="__43">
+      <from-activity-id>LogoutAnalyticEvent</from-activity-id>
+      <control-flow-case id="__44">
+        <from-outcome>logout</from-outcome>
+        <to-activity-id>postCollectedAnalyticEventsToMCS2</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__29">
+      <from-activity-id>registerForMCSNotification</from-activity-id>
+      <control-flow-case id="__30">
+        <from-outcome>appStart</from-outcome>
+        <to-activity-id>checkUserAuthentication</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__10">
+      <from-activity-id>postCollectedAnalyticEventsToMCS2</from-activity-id>
+      <control-flow-case id="__11">
+        <from-outcome>logout</from-outcome>
+        <to-activity-id>deRegisterForMCSNotification</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__51">
+      <from-activity-id>SRMenu</from-activity-id>
+      <control-flow-case id="__52">
+        <from-outcome>gotoReports</from-outcome>
+        <to-activity-id>SRList</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__53">
+        <from-outcome>createIncident</from-outcome>
+        <to-activity-id>SRCreation</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__54">
+      <from-activity-id>SRCreation</from-activity-id>
+      <control-flow-case id="__55">
+        <from-outcome>gotoMenu</from-outcome>
+        <to-activity-id>SRMenu</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__37">
+      <from-activity-id>*</from-activity-id>
+      <control-flow-case id="__38">
+        <from-outcome>backFromList</from-outcome>
+        <to-activity-id>checkUserAuthentication</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <page-flow-scope-behavior>
+      <push-new/>
+    </page-flow-scope-behavior>
+  </task-flow-definition>
+</adfc-mobile-config>

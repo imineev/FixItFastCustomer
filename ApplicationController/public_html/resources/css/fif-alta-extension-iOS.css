@@ -1,0 +1,10 @@
+@charset "US-ASCII";
+
+.padding-top12{
+    padding-top:12px;
+}
+
+
+html[dir=ltr] .amx-listItem-selected > .amx-listItem-caret{
+    background-position: -51px -1px;
+}

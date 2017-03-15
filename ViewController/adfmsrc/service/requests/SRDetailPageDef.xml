@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.1.3.12.39" id="SRDetailPageDef"
+                Package="service.requests">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables">
+      <variable Type="java.lang.String" Name="updateIncidentStatus_status" IsQueriable="false" IsUpdateable="2"
+                DefaultValue="#{bindings.status.inputValue}"/>
+      <variable Type="java.lang.String" Name="updateIncidentStatus_notes" IsQueriable="false"/>
+    </variableIterator>
+    <iterator Binds="root" RangeSize="25" DataControl="FiFCustomerDC" id="FiFCustomerDCIterator"/>
+    <accessorIterator MasterBinding="FiFCustomerDCIterator" Binds="currentIncident" RangeSize="25"
+                      DataControl="FiFCustomerDC"
+                      BeanClass="oracle.mobile.cloud.sample.fif.customer.app.data.entities.Incident"
+                      id="currentIncidentIterator"/>
+    <accessorIterator MasterBinding="currentIncidentIterator" Binds="notes" RangeSize="25" DataControl="FiFCustomerDC"
+                      BeanClass="java.lang.String" id="notesIterator"/>
+  </executables>
+  <bindings>
+    <attributeValues IterBinding="currentIncidentIterator" id="id">
+      <AttrNames>
+        <Item Value="id"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="currentIncidentIterator" id="title">
+      <AttrNames>
+        <Item Value="title"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="currentIncidentIterator" id="priority">
+      <AttrNames>
+        <Item Value="priority"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="currentIncidentIterator" id="status">
+      <AttrNames>
+        <Item Value="status"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="currentIncidentIterator" id="createdOn">
+      <AttrNames>
+        <Item Value="createdOn"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="currentIncidentIterator" id="customerName">
+      <AttrNames>
+        <Item Value="customerName"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="currentIncidentIterator" id="street">
+      <AttrNames>
+        <Item Value="street"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="currentIncidentIterator" id="city">
+      <AttrNames>
+        <Item Value="city"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="currentIncidentIterator" id="postalCode">
+      <AttrNames>
+        <Item Value="postalCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="currentIncidentIterator" id="remoteImgLink">
+      <AttrNames>
+        <Item Value="remoteImgLink"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="updateIncidentStatus" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="updateIncidentStatus" IsViewObjectMethod="false" DataControl="FiFCustomerDC"
+                  InstanceName="data.FiFCustomerDC.dataProvider">
+      <NamedData NDName="incidentId" NDType="java.lang.String" NDValue="${bindings.id.inputValue}"/>
+      <NamedData NDName="status" NDType="java.lang.String" NDValue="${bindings.updateIncidentStatus_status}"/>
+      <NamedData NDName="notes" NDType="java.lang.String" NDValue="${bindings.updateIncidentStatus_notes}"/>
+    </methodAction>
+    <attributeValues IterBinding="variables" id="status1">
+      <AttrNames>
+        <Item Value="updateIncidentStatus_status"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="variables" id="notes">
+      <AttrNames>
+        <Item Value="updateIncidentStatus_notes"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="FiFCustomerDCIterator" id="dcMessage">
+      <AttrNames>
+        <Item Value="dcMessage"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="FiFCustomerDCIterator" id="technicianLocationLong">
+      <AttrNames>
+        <Item Value="technicianLocationLong"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="FiFCustomerDCIterator" id="technicianLocationLat">
+      <AttrNames>
+        <Item Value="technicianLocationLat"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="notesIterator" id="notes1">
+      <nodeDefinition DefName="oracle.mobile.cloud.sample.fif.customer.app.data.entities.NoteItem" Name="notes10">
+        <AttrNames>
+          <Item Value="index"/>
+          <Item Value="message"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="FiFCustomerDCIterator" id="imagePathForPOST">
+      <AttrNames>
+        <Item Value="imagePathForPOST"/>
+      </AttrNames>
+    </attributeValues>
+  </bindings>
+</pageDefinition>

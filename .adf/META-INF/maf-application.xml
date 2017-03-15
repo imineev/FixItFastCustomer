@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<adfmf:application xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:adfmf="http://xmlns.oracle.com/adf/mf"
+                   version="1.0" name="FixitFast Customer" id="oracle.cloud.mobile.demo.fixitfastcustomer"
+                   appControllerFolder="ApplicationController"
+                   listener-class="oracle.mobile.cloud.sample.fif.customer.application.alcl.FiFLifeCycleListenerImpl"
+                   vendor="Oracle Corporation ( (c) 2015)">
+    <adfmf:description>Fix-it-Fast Customer app allows Customers to create and browse service requests. The application uses Oracle Mobile Cloud Services. </adfmf:description>
+    <adfmf:featureReference refId="oracle.mobile.cloud.sample.fif.customer.ServiceRequests" id="fr1"/>
+    <adfmf:preferences>
+        <adfmf:preferenceGroup id="mcs" label="Mobile Cloud Service Settings">
+            <adfmf:preferenceText id="fifMobileBackendURL" label="Mobile Backend Base URL" default="--UPDATE-THIS--"/>
+            <adfmf:preferenceText id="fifMobileBackendName" label="FIF Mobile Backend Name" default="FIF_Customer"/>
+            <adfmf:preferenceText id="fifMobileBackendId" label="Mobile Backend Id" default="--UPDATE-THIS--"/>
+            <adfmf:preferenceText id="fifMobileBackendApplicationKeyAndroid" label="FiF Mobile Backend Application Key (Android)" default="--UPDATE-THIS--"/>
+            <adfmf:preferenceText label="FiF Mobile Backend Application Key (iOS)" id="fifMobileBackendApplicationKeyiOS" default="--UPDATE-THIS--"/>
+            <adfmf:preferenceText id="fifMBEAnonymousKey" label="FIF MBE Anonymous Key" default="--UPDATE-THIS--"/>
+        </adfmf:preferenceGroup>
+        <adfmf:preferenceGroup id="push" label="Push Notification Settings">
+            <adfmf:preferenceText id="gcmSenderId" label="(Android) Google Cloud Messaging Sender Id" secret="false" default="792677244103"/>
+            <adfmf:preferenceText id="appleBundleId" label="(Apple) Application Bundle Id" default="com.oraclecorp.internal.ent3.FixItFastCustomer"/>
+            <adfmf:preferenceText label="(Google) Application Package Information" id="googleApplicationPackage" default="oracle.cloud.mobile.demo.fixitfastcustomer"/>
+            <adfmf:preferenceBoolean id="enablePush" label="Enable Receiving Push Notifications" default="true"/>
+        </adfmf:preferenceGroup>
+        <adfmf:preferenceGroup id="debug" label="Debug">
+            <adfmf:preferenceBoolean id="pushMessagesForDebug" label="Show Push Raw Messages" default="false"/>
+        </adfmf:preferenceGroup>   
+    </adfmf:preferences>
+    <adfmf:navigation>
+        <adfmf:navigationBar enabled="false"/>
+    </adfmf:navigation>
+    <adfmf:login/>
+</adfmf:application>

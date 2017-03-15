@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.1.3.12.39" id="SRCreationPageDef"
+                Package="service.requests">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables">
+      <variable Type="java.lang.String" Name="createIncident_title" IsQueriable="false"/>
+      <variable Type="java.lang.String" Name="createIncident_notes" IsQueriable="false"/>
+    </variableIterator>
+    <iterator id="FiFCustomerDC_dataProvider_rootIter" Binds="root" DataControl="FiFCustomerDC" RangeSize="25"/>
+  </executables>
+  <bindings>
+    <methodAction id="processPic" RequiresUpdateModel="true" Action="invokeMethod" MethodName="processPic"
+                  IsViewObjectMethod="false" DataControl="FiFCustomerDC"
+                  InstanceName="data.FiFCustomerDC.dataProvider"/>
+    <methodAction id="createIncident" RequiresUpdateModel="true" Action="invokeMethod" MethodName="createIncident"
+                  IsViewObjectMethod="false" DataControl="FiFCustomerDC" InstanceName="data.FiFCustomerDC.dataProvider">
+      <NamedData NDName="title" NDType="java.lang.String" NDValue="${bindings.createIncident_title}"/>
+      <NamedData NDName="notes" NDType="java.lang.String" NDValue="${bindings.createIncident_notes}"/>
+    </methodAction>
+    <attributeValues IterBinding="variables" id="title">
+      <AttrNames>
+        <Item Value="createIncident_title"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="variables" id="notes">
+      <AttrNames>
+        <Item Value="createIncident_notes"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="FiFCustomerDC_dataProvider_rootIter" id="imagePathForPOST">
+      <AttrNames>
+        <Item Value="imagePathForPOST"/>
+      </AttrNames>
+    </attributeValues>
+  </bindings>
+</pageDefinition>

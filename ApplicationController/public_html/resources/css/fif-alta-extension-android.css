@@ -1,0 +1,93 @@
+/* Header and footer css specific for android  */
+.amx-panelPage-facet-primary{
+    position: absolute;
+    top: 0;
+    right: 50%;
+    bottom: 0;
+    left: 0;
+    z-index: 3;
+}
+
+.amx-panelPage-facet-secondary{
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 50%;
+    z-index: 3;
+    text-align: end;
+}
+
+.amx-panelPage-facet-footer, .amx-panelPage-facet-header{
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+}
+
+.amx-panelPage-facet-header{
+    width:100%;
+    text-align:center;
+}
+
+.amx-panelPage-header-appIcon{
+    display:none;
+}
+
+.amx-panelPage-header,.amx-panelPage-footer{
+    position: relative;
+    overflow: hidden;
+    opacity: .95;
+    width: 100%;
+    height: 44px;
+    display: block;
+    z-index: 1;
+}
+.amx-panelPage-footer{
+    height: 54px;
+}
+HTML[dir="ltr"] .amx-listItem-caret{
+    width: 9px;
+    height: 13px;
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    margin-top: -6px;
+    display: block;
+    background-repeat: no-repeat;
+    background-size: 256px 149px;
+    background-position: -78px -75px;
+}
+HTML[dir="ltr"] .amx-listItem-selected > .amx-listItem-caret,
+HTML[dir="ltr"] .amx-listItem:active > .amx-listItem-caret {
+  background-position: -78px -75px; /* LTR and RTL slices are not perfectly centered hence the unique positions */
+}
+
+.amx-commandLink:active,.amx-commandLink,.amx-goLink:active,.amx-goLink {
+    background-color: transparent;
+    opacity: 0.7;
+    outline: none;
+}
+.amx-commandLink .amx-outputText,.amx-commandLink:active .amx-outputText{
+    text-decoration:none;
+}
+
+.issue-image {
+    border: 1px solid #6FC8B9;
+    border-radius: 5px;
+}
+
+.amx-inputText .field-value .wrap, .amx-inputText .field-value .wrap.amx-wrap-active {
+    border-image: none;
+    border: none;
+}
+
+.amx-listItem{
+    border-bottom: 1px solid transparent;
+    background-repeat: no-repeat;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEXV3+8aLew4AAAACklEQVQIHWNgAAAAAgABz8g15QAAAABJRU5ErkJggg==);
+    background-size: 100% 1px;
+    background-position: 10px 100%;
+}

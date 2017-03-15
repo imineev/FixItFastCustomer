@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<amx:view xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:amx="http://xmlns.oracle.com/adf/mf/amx"
+          xmlns:dvtm="http://xmlns.oracle.com/adf/mf/amx/dvt">
+    <amx:panelPage id="pp1">
+        <amx:facet name="header">
+            <amx:panelGroupLayout id="pgl6" halign="center" valign="middle" styleClass="padding-top12">
+                <amx:outputText value="Main Menu" id="ot1" styleClass="white"/>
+            </amx:panelGroupLayout>
+        </amx:facet>
+        <amx:facet name="primary">
+            <amx:commandLink id="cb1" action="logout">
+                <amx:image id="i3" source="/images/arrow.png"/>
+            </amx:commandLink>
+        </amx:facet>
+        <amx:panelGroupLayout id="pgl1" layout="vertical" halign="center" valign="top" scrollPolicy="scroll">
+            <amx:image id="i1" shortDesc="promo image" source="/images/promotion.png" styleClass="width100"/>
+            <amx:tableLayout id="tl1" width="100%" shortDesc="reports table"
+                             styleClass="margin-topN5 border-bottom-gray">
+                <amx:rowLayout id="rl1">
+                    <amx:cellFormat id="cf1" width="50%" halign="center" valign="middle">
+                        <amx:spacer id="s2" height="10"/>
+                        <amx:commandLink id="cl1" action="createIncident" styleClass="noUnderline">
+                            <amx:image id="i5" source="/images/new.png" styleClass="menu-images"/>
+                            <amx:setPropertyListener id="spl1" from='#{"0"}' to="#{pageFlowScope.displayCamera}"/>
+                            <amx:spacer id="s3" height="20"/>
+                            <amx:outputText value="Create New Report" styleClass="light-blue" id="ot2"/>
+                        </amx:commandLink>
+                        <amx:spacer id="s4" height="10"/>
+                    </amx:cellFormat>
+                    <amx:cellFormat id="cf2" width="50%" valign="middle" halign="center"
+                                    inlineStyle="border-left:1px solid #cccccc;">
+                        <amx:spacer id="s5" height="10"/>
+                        <amx:commandLink id="cl2" action="gotoReports" styleClass="noUnderline">
+                            <amx:image id="i2" source="/images/reports.png" styleClass="menu-images"/>
+                            <amx:spacer id="s6" height="20"/>
+                            <amx:outputText value="My Reports" styleClass="light-blue" id="ot3"/>
+                        </amx:commandLink>
+                        <amx:spacer id="s8" height="10"/>
+                    </amx:cellFormat>
+                </amx:rowLayout>
+            </amx:tableLayout>
+            <amx:panelGroupLayout id="pgl10" halign="center" valign="middle">
+                <amx:spacer id="s7" height="20"/>
+                <amx:selectBooleanCheckbox id="sbc1" label="label1" simple="true" text="Show Deals"/>
+            </amx:panelGroupLayout>
+        </amx:panelGroupLayout>
+        <amx:panelGroupLayout id="pgl2" styleClass="logo-placeholder">
+            <amx:image id="i4" source="/images/powerby.png" styleClass="oracle-logo"/>
+        </amx:panelGroupLayout>
+    </amx:panelPage>
+</amx:view>

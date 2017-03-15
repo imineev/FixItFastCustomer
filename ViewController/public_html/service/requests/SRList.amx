@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ * @author Frank Nimphius
+ * @copyright Copyright (c) 2015 Oracle. All rights reserved.
+-->
+<amx:view xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:amx="http://xmlns.oracle.com/adf/mf/amx"
+          xmlns:dvtm="http://xmlns.oracle.com/adf/mf/amx/dvt">
+    <amx:panelPage id="pp1">
+        <amx:facet name="header">
+            <amx:panelGroupLayout id="pgl6" halign="center" valign="middle" styleClass="padding-top12">
+                <amx:outputText value="My Reports" id="ot1" styleClass="white"/>
+            </amx:panelGroupLayout>
+        </amx:facet>
+        <amx:facet name="primary">
+            <amx:commandLink id="cb1" action="gotoMenu" actionListener="#{bindings.clearCacheIncidentData.execute}">
+                <amx:image id="i3" source="/images/arrow.png"/>
+            </amx:commandLink>
+        </amx:facet>
+        <amx:panelGroupLayout id="pgl1" layout="vertical">
+            <amx:listView var="row" value="#{bindings.allIncidents.collectionModel}" showMoreStrategy="autoScroll"
+                          fetchSize="#{bindings.allIncidents.rangeSize}"
+                          selectedRowKeys="#{bindings.allIncidents.collectionModel.selectedRow}"
+                          selectionListener="#{bindings.allIncidents.collectionModel.makeCurrent}"
+                          bufferStrategy="additive" id="lv1" bufferSize="300" halign="center">
+                <amx:listItem id="li1" styleClass="margin-top2 margin-bottom1"
+                              shortDesc="Incident with the ID #{row.id}" action="drillDownFromPage">
+                    <amx:setPropertyListener from="#{row.title}" id="spl4" type="action" to="#{viewScope.notes}"/>
+                    <amx:tableLayout width="100%" id="tl2" shortDesc="Table">
+                        <amx:rowLayout id="rl1">
+                            <amx:cellFormat width="50px" id="sr" valign="middle" halign="center" shortDesc="Cell">
+                                <amx:image source="/images/#{row.priorityImg}" id="i11" shortDesc="Priority Image"
+                                           styleClass="priority-image"/>
+                            </amx:cellFormat>
+                            <amx:cellFormat width="100%" id="cf7" valign="middle" shortDesc="Cell">
+                                <amx:outputText value="#{row.title}" id="title" styleClass="black"/>
+                                <amx:outputText value="#{row.customerName}" styleClass="list-subtext" id="imglink"/>
+                            </amx:cellFormat>
+                            <amx:cellFormat width="80px" halign="center" id="cf3" shortDesc="Cell"
+                                            styleClass="margin-right5" valign="middle">
+                                <amx:panelGroupLayout id="status" halign="end" valign="middle">
+                                    <amx:outputText value="#{(row.status eq 'InProgress' ? 'Ongoing' : row.status)}"
+                                                    id="ot2" styleClass="black"/>
+                                    <amx:outputText value="#{row.createdOn}" id="ot3" styleClass="list-subtext">
+                                        <amx:convertDateTime id="cdt1" pattern="dd/MM/yy"/>
+                                    </amx:outputText>
+                                </amx:panelGroupLayout>
+                            </amx:cellFormat>
+                        </amx:rowLayout>
+                    </amx:tableLayout>
+                    <!-- set the selected incident id to the data control for a call to show details -->
+                    <amx:setPropertyListener id="spl1" from="#{row.id}"
+                                             to="#{pageFlowScope.taskFlowHelper.currentIncidentId}" type="action"/>
+                    <amx:setPropertyListener id="spl3" from="#{row.remoteImgLink}"
+                                             to="#{pageFlowScope.taskFlowHelper.currentIncidentImageLink}"
+                                             type="action"/>
+                    <amx:setPropertyListener id="spl2" from="#{row.drivingTime}"
+                                             to="#{pageFlowScope.taskFlowHelper.drivingTime}" type="action"/>
+                </amx:listItem>
+            </amx:listView>
+        </amx:panelGroupLayout>
+    </amx:panelPage>
+</amx:view>

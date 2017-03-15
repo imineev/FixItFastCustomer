@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ * @author Frank Nimphius
+ * @copyright Copyright (c) 2015 Oracle. All rights reserved.
+-->
+<amx:view xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:amx="http://xmlns.oracle.com/adf/mf/amx"
+          xmlns:dvtm="http://xmlns.oracle.com/adf/mf/amx/dvt">
+    <amx:panelPage id="pp1">
+        <amx:facet name="header">
+            <amx:panelGroupLayout id="pgl6" halign="center" valign="middle" styleClass="padding-top12">
+                <amx:outputText value="Incident Report ##{bindings.id.inputValue}" id="ot1" styleClass="white"/>
+            </amx:panelGroupLayout>
+        </amx:facet>
+        <amx:facet name="primary">
+            <amx:commandLink id="cb1" action="#{viewScope.sRDetailBacking.backNavigation}">
+                <amx:image id="i2" shortDesc="back" source="/images/arrow.png"/>
+            </amx:commandLink>
+        </amx:facet>
+        <amx:panelGroupLayout id="pgl2" layout="vertical" halign="center" valign="top" scrollPolicy="scroll">
+            <amx:panelGroupLayout id="details" halign="center" styleClass="padding-10-30">
+                <amx:image id="i1" source="#{viewScope.sRDetailBacking.base64EncodedIncidentPhoto}"
+                           styleClass="issue-image"/>
+                <amx:spacer id="s5" height="10"/>
+                <amx:outputText value="#{bindings.title.inputValue}" id="ot10"
+                                styleClass="black"/>
+                <amx:spacer id="s2" height="10"/>
+                <amx:outputText value="#{bindings.createdOn.inputValue}" id="ot3" styleClass="light-gray" >
+                    <amx:convertDateTime pattern="#{bindings.createdOn.format}" id="cdt1" dateStyle="full" type="both"/>
+                </amx:outputText>
+                <amx:spacer id="s4" height="10"/>
+                <amx:inputText simple="true" value="#{bindings.notes.inputValue}"  hintText="Add Note" id="it2" rows="7"
+                               styleClass="report-input-text"/>
+                <amx:spacer id="s6" height="10"/>
+                <amx:commandButton actionListener="#{bindings.updateIncidentStatus.execute}" text="Update" id="cb2"
+                                   action="flushAnalytics" styleClass="fif-buttons"
+                                   />
+                <amx:spacer id="s3" height="10"/>
+                <amx:panelGroupLayout id="pgl1" layout="vertical">
+                    <amx:tableLayout id="tl1" halign="start" width="100%" summary="Incident notes table">
+                        <amx:iterator var="row" value="#{bindings.notes1.collectionModel}" id="i4">
+                            <amx:rowLayout id="rl1">
+                                <amx:cellFormat id="cf1" shortDesc="Note item" valign="top" halign="start" width="100%">
+                                    <amx:outputText value="#{row.message}" id="ot16" styleClass="black" />
+                                </amx:cellFormat>
+                            </amx:rowLayout>
+                        </amx:iterator>
+                    </amx:tableLayout>
+                </amx:panelGroupLayout>
+            </amx:panelGroupLayout>
+        </amx:panelGroupLayout>
+    </amx:panelPage>
+</amx:view>

@@ -1,0 +1,21 @@
+<?xml version = '1.0' encoding = 'US-ASCII'?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
+  <filter>
+    <filter-name>adfBindings</filter-name>
+    <filter-class>oracle.adf.model.servlet.ADFBindingFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>adfBindings</filter-name>
+    <url-pattern>*.jsp</url-pattern>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>REQUEST</dispatcher>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>adfBindings</filter-name>
+    <url-pattern>*.jspx</url-pattern>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>REQUEST</dispatcher>
+  </filter-mapping>
+</web-app>

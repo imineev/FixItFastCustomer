@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<amx:view xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:amx="http://xmlns.oracle.com/adf/mf/amx"
+          xmlns:dvtm="http://xmlns.oracle.com/adf/mf/amx/dvt">
+    <amx:panelPage id="pp1">
+        <amx:facet name="header">
+            <amx:panelGroupLayout id="pgl6" halign="center" valign="middle" styleClass="padding-top12">
+                <amx:outputText value="Create New Report" id="ot1" styleClass="white"/>
+            </amx:panelGroupLayout>
+        </amx:facet>
+        <amx:facet name="primary">
+            <amx:commandLink id="cb1" action="__back">
+                <amx:image id="i3" source="/images/arrow.png"/>
+            </amx:commandLink>
+        </amx:facet>
+        <amx:panelGroupLayout id="pgl4" layout="vertical" halign="center" styleClass="padding-10-30">
+            <amx:inputText value="#{bindings.title.inputValue}" simple="true" hintText="Title" id="it1"
+                           styleClass="report-input-text"/>
+            <amx:spacer id="s1" height="20"/>
+            <amx:inputText value="#{bindings.notes.inputValue}" simple="true" hintText="Problem Description" id="it2" rows="10"
+                           styleClass="report-input-text"/>
+            <amx:spacer id="s3" height="20"/>
+            <amx:commandLink actionListener="#{bindings.processPic.execute}" disabled="#{!bindings.processPic.enabled}"
+                             id="cb3">
+                <amx:image id="i2" source="/images/photo.png" rendered='#{pageFlowScope.displayCamera == "0"}'
+                           styleClass="issue-image"/>
+                <amx:image id="i1" source="#{bindings.imagePathForPOST.inputValue}" styleClass="issue-image"
+                           rendered="#{pageFlowScope.displayCamera != '0'}"/>
+                <amx:setPropertyListener from="1" to="#{pageFlowScope.sourceType}" id="spm1"/>
+                <amx:setPropertyListener id="spl1" from="#{pageFlowScope.displayCamera == '0' ? '1' : '0'}"
+                                         to="#{pageFlowScope.displayCamera}"/>
+            </amx:commandLink>
+            <amx:spacer id="s4" height="20"/>
+            <amx:commandButton actionListener="#{bindings.createIncident.execute}" text="Submit"
+                               styleClass="fif-buttons" disabled="#{!bindings.createIncident.enabled}" id="cb2"
+                               action="gotoMenu"/>
+        </amx:panelGroupLayout>
+    </amx:panelPage>
+</amx:view>

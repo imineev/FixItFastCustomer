@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ * @author Frank Nimphius
+ * @copyright Copyright (c) 2015 Oracle. All rights reserved.
+-->
+<amx:view xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:amx="http://xmlns.oracle.com/adf/mf/amx"
+          xmlns:dvtm="http://xmlns.oracle.com/adf/mf/amx/dvt">
+    <amx:panelPage id="pp1">
+        <amx:panelStretchLayout id="psl1">
+            <amx:facet name="top"></amx:facet>
+            <amx:facet name="center">
+                <amx:panelGroupLayout id="pgl1" layout="vertical" halign="center" valign="middle"
+                                      inlineStyle="height:735px; width:750px;" styleClass="backImage">
+                    <amx:spacer id="s1" height="#{deviceScope.hardware.screen.height/10}"/>
+                    <amx:panelGroupLayout id="pgl4" layout="vertical"
+                                          inlineStyle="height:230px; width:100%;">
+                        <amx:panelFormLayout id="pfl1" labelPosition="topStart" fieldHalign="center" fieldWidth="100%"
+                                             labelWidth="0%" inlineStyle="width: 750px;">
+                            <amx:inputText id="it1" hintText="Username" inputType="text"
+                                           inlineStyle="font-family: HelveticaNeue; color: #939598; font-size: 36px; font-weight: 400;"
+                                           value="#{pageFlowScope.authenticationHandler.username}"/>
+                            <amx:inputText id="it2" hintText="Password" inputType="text" secret="true"
+                                           inlineStyle="font-family: HelveticaNeue; color: #939598; font-size: 36px; font-weight: 400;"
+                                           value="#{pageFlowScope.authenticationHandler.password}"/>
+                        </amx:panelFormLayout>
+                    </amx:panelGroupLayout>
+                    <amx:panelGroupLayout id="pgl5"
+                                          inlineStyle="background-color: #35BB9F; width: 608px; height: 86px;">
+                        <amx:commandButton text="Sign In" id="cb1" action="#{pageFlowScope.authenticationHandler.login}"
+                                           actionListener="#{bindings.resetDataControlMessages.execute}"
+                                           inlineStyle="background-color: #35BB9F; width: 608px; height: 86px;font-family: HelveticaNeue; color: white; font-size: 36px; font-weight: 400;"/>
+                    </amx:panelGroupLayout>
+                </amx:panelGroupLayout>
+            </amx:facet>
+            <amx:facet name="bottom">
+                <amx:panelGroupLayout id="pgl2" halign="center" valign="middle">
+                    <amx:image id="i2" source="/images/powerby.png"/>
+                </amx:panelGroupLayout>
+            </amx:facet>
+        </amx:panelStretchLayout>
+    </amx:panelPage>
+</amx:view>

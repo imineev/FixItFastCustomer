@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.1.3.12.39" id="LoginPageDef"
+                Package="service.login">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="root" RangeSize="25" DataControl="FiFCustomerDC" id="FiFCustomerDCIterator"/>
+  </executables>
+  <bindings>
+    <attributeValues IterBinding="FiFCustomerDCIterator" id="dcHasMessage">
+      <AttrNames>
+        <Item Value="dcHasMessage"/>
+      </AttrNames>
+    </attributeValues>
+    <methodAction id="resetDataControlMessages" RequiresUpdateModel="true" Action="invokeMethod"
+                  MethodName="resetDataControlMessages" IsViewObjectMethod="false" DataControl="FiFCustomerDC"
+                  InstanceName="data.FiFCustomerDC.dataProvider"/>
+  </bindings>
+</pageDefinition>
